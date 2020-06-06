@@ -33,6 +33,7 @@ void process_image_callback(const sensor_msgs::Image img)
 		//ROS_INFO("Processing image");
 		
 		float angle = 0;
+		float velocity = 0.2;
 		for (int r = 0; r < img.height; r++) {
 			int first = -1, last = -1;
 			int row_offset = r * img.step;
@@ -48,9 +49,9 @@ void process_image_callback(const sensor_msgs::Image img)
 				float ball_center = (first + last)/2;
 				// empirical factor for angle (0.05) given my poor system perfomances (macos + vm)
 				// also, x velocity is zero on purpose
-				angle = 0.05*(1 - ball_center/(img.step/2)); 
+				angle = 1.0*(1 - ball_center/(img.step/2)); 
 		
-				drive_robot(0, angle);
+				drive_robot(velocity, angle);
 
 				return;
 			}
